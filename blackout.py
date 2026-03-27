@@ -1,4 +1,4 @@
--raw_data = """
+raw_data = """
 [FILE] system_kernel_dump.log | Size: 120 MB | Val: 50 Credits
 [FILE] user_passwords_encrypted.db | Size: 45 MB | Val: 3500 Credits
 [FILE] project_chimera_schemas.pdf | Size: 15 MB | Val: 800 Credits
@@ -60,14 +60,12 @@
 [FILE] chat_logs_developers.txt | Size: 75 MB | Val: 2200 Credits
 [FILE] invoice_template.dotx | Size: 2 MB | Val: 10 Credits
 """
- ---
+
 LIMIT_SEKUND = 300
 RYCHLOST_MB = 20
 
-pracovat
 soubory = []
 for radek in raw_data.strip().split('\n'):
-    # Rozsekáme řádek podle svislítek
     casti = radek.split('|')
     nazev = casti[0].replace('[FILE] ', '').strip()
     velikost = int(casti[1].replace('Size: ', '').replace(' MB', '').strip())
@@ -106,5 +104,5 @@ for s in vybrane:
 print("-" * 70)
 print(f"CELKEM KREDITŮ: {celkove_kredity} Credits")
 print(f"CELKEM ČASU:    {aktualni_cas:.2f} s / {LIMIT_SEKUND} s")
-print(f"POČET SOUBORŮ:  {len(vybrane)} z {len(soubory.splitlines() if isinstance(soubory, str) else soubory)}")
+print(f"POČET SOUBORŮ:  {len(vybrane)} z {len(soubory)}")
 print("=" * 70)

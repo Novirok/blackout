@@ -1,5 +1,4 @@
-# --- KOMPLETNÍ SEZNAM DAT ZE SERVERU ---
-raw_data = """
+-raw_data = """
 [FILE] system_kernel_dump.log | Size: 120 MB | Val: 50 Credits
 [FILE] user_passwords_encrypted.db | Size: 45 MB | Val: 3500 Credits
 [FILE] project_chimera_schemas.pdf | Size: 15 MB | Val: 800 Credits
@@ -61,14 +60,11 @@ raw_data = """
 [FILE] chat_logs_developers.txt | Size: 75 MB | Val: 2200 Credits
 [FILE] invoice_template.dotx | Size: 2 MB | Val: 10 Credits
 """
-
-# --- KONFIGURACE ---
+ ---
 LIMIT_SEKUND = 300
 RYCHLOST_MB = 20
 
-# --- LOGIKA PROGRAMU ---
-
-# 1. Převedeme text na data, se kterými se dá pracovat
+pracovat
 soubory = []
 for radek in raw_data.strip().split('\n'):
     # Rozsekáme řádek podle svislítek
@@ -77,7 +73,6 @@ for radek in raw_data.strip().split('\n'):
     velikost = int(casti[1].replace('Size: ', '').replace(' MB', '').strip())
     hodnota = int(casti[2].replace('Val: ', '').replace(' Credits', '').strip())
     
-    # Spočítáme čas (t = s / v) a výhodnost (Credits / Sekunda)
     cas_na_stazeni = velikost / RYCHLOST_MB
     index_vyhodnosti = hodnota / cas_na_stazeni
     
@@ -89,11 +84,8 @@ for radek in raw_data.strip().split('\n'):
         'vyhodnost': index_vyhodnosti
     })
 
-# 2. Seřadíme to od nejlepšího poměru cena/čas
-# (Tady se děje to hlavní kouzlo!)
 soubory.sort(key=lambda x: x['vyhodnost'], reverse=True)
 
-# 3. Vybíráme soubory, dokud máme čas
 vybrane = []
 aktualni_cas = 0
 celkove_kredity = 0
@@ -104,7 +96,6 @@ for s in soubory:
         aktualni_cas += s['cas']
         celkove_kredity += s['hodnota']
 
-# --- VÝPIS VÝSLEDKŮ ---
 print("=" * 70)
 print(f"{'NÁZEV SOUBORU':<35} | {'HODNOTA':<10} | {'ČAS (s)'}")
 print("-" * 70)
